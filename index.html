@@ -47,10 +47,28 @@
         </div>
     </nav>
 
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="energy-orb"></div>
+            <div class="loading-text hologram-text" data-text="PRANAY GAJBHIYE">PRANAY GAJBHIYE</div>
+            <div class="loading-progress">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="matrix-rain-effect"></div>
+    </div>
+
     <!-- Hero Section -->
-    <section id="home" class="hero">
+    <section id="home" class="hero cosmic-background">
         <div class="hero-bg">
             <div id="particles-container"></div>
+            <div class="cyber-grid"></div>
             <div class="wave-animation">
                 <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
                     <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
@@ -58,96 +76,149 @@
                     <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
                 </svg>
             </div>
+            <!-- Quantum Dots -->
+            <div class="quantum-dot" style="top: 20%; left: 15%;"></div>
+            <div class="quantum-dot" style="top: 70%; left: 80%;"></div>
+            <div class="quantum-dot" style="top: 40%; left: 90%;"></div>
+            <div class="quantum-dot" style="top: 60%; left: 10%;"></div>
+            <div class="quantum-dot" style="top: 30%; left: 70%;"></div>
         </div>
         <div class="hero-content">
             <div class="hero-text">
                 <h1 class="hero-title">
-                    <span class="greeting">Hello, I'm</span>
-                    <span class="name gradient-text glow-text">Pranay Gajbhiye</span>
-                    <span class="subtitle">Full Stack Developer</span>
+                    <span class="greeting text-3d-neon">Hello, I'm</span>
+                    <span class="name gradient-holographic glow-holographic text-3d" data-text="Pranay Gajbhiye">Pranay Gajbhiye</span>
+                    <span class="subtitle gradient-cyber">Full Stack Developer</span>
                 </h1>
-                <p class="hero-description">
-                    Passionate B.Tech CSE student crafting digital experiences 
+                <p class="hero-description glow-text">
+                    Passionate B.Tech CSE student crafting digital experiences
                     with modern technologies and creative solutions.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary glass-btn">
+                    <a href="#projects" class="btn btn-holographic interactive-3d">
                         <span>View My Work</span>
-                        <i class="fas fa-arrow-right"></i>
+                        <i class="fas fa-rocket"></i>
                     </a>
-                    <a href="#contact" class="btn btn-secondary glass-btn">
+                    <a href="#contact" class="btn btn-glass-neon interactive-3d">
                         <span>Get In Touch</span>
-                        <i class="fas fa-envelope"></i>
+                        <i class="fas fa-satellite-dish"></i>
                     </a>
                 </div>
                 <div class="social-links">
-                    <a href="https://github.com/Pusparaj99op" target="_blank" 
-                       class="social-link glass-effect">
+                    <a href="https://github.com/Pusparaj99op" target="_blank"
+                       class="social-link glass-neon magnetic-hover">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="https://www.linkedin.com/in/pranaygajbhiye/" 
-                       target="_blank" class="social-link glass-effect">
+                    <a href="https://www.linkedin.com/in/pranaygajbhiye/"
+                       target="_blank" class="social-link glass-neon magnetic-hover">
                         <i class="fab fa-linkedin"></i>
                     </a>
-                    <a href="https://www.youtube.com/@AnonymousRingtonesYT" 
-                       target="_blank" class="social-link glass-effect">
+                    <a href="https://www.youtube.com/@AnonymousRingtonesYT"
+                       target="_blank" class="social-link glass-neon magnetic-hover">
                         <i class="fab fa-youtube"></i>
                     </a>
-                    <a href="https://www.instagram.com/pranaygajbhiye777/" 
-                       target="_blank" class="social-link glass-effect">
+                    <a href="https://www.instagram.com/pranaygajbhiye777/"
+                       target="_blank" class="social-link glass-neon magnetic-hover">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://unstop.com/u/pranagaj69179" 
-                       target="_blank" class="social-link glass-effect">
+                    <a href="https://unstop.com/u/pranagaj69179"
+                       target="_blank" class="social-link glass-neon magnetic-hover">
                         <i class="fas fa-trophy"></i>
                     </a>
                 </div>
             </div>
             <div class="hero-visual">
                 <div class="floating-elements">
-                    <div class="floating-card glass-effect">
-                        <i class="fas fa-code"></i>
-                        <span>Frontend</span>
+                    <div class="floating-card holographic-card interactive-3d">
+                        <i class="fas fa-code" style="color: var(--neon-cyan);"></i>
+                        <span class="gradient-neon">Frontend</span>
                     </div>
-                    <div class="floating-card glass-effect">
-                        <i class="fas fa-server"></i>
-                        <span>Backend</span>
+                    <div class="floating-card holographic-card interactive-3d">
+                        <i class="fas fa-server" style="color: var(--neon-pink);"></i>
+                        <span class="gradient-neon">Backend</span>
                     </div>
-                    <div class="floating-card glass-effect">
-                        <i class="fas fa-mobile-alt"></i>
-                        <span>Mobile</span>
+                    <div class="floating-card holographic-card interactive-3d">
+                        <i class="fas fa-mobile-alt" style="color: var(--neon-purple);"></i>
+                        <span class="gradient-neon">Mobile</span>
                     </div>
+                </div>
+                <!-- 3D Hologram Display -->
+                <div class="hologram-display">
+                    <div class="energy-orb"></div>
+                    <svg class="neural-network" width="300" height="300">
+                        <path class="neural-connection" d="M50,50 Q150,25 250,50 Q150,75 50,50"></path>
+                        <path class="neural-connection" d="M50,150 Q150,125 250,150 Q150,175 50,150"></path>
+                        <path class="neural-connection" d="M50,250 Q150,225 250,250 Q150,275 50,250"></path>
+                    </svg>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about">
+    <section id="about" class="about cosmic-background">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title gradient-text">About Me</h2>
-                <p class="section-subtitle">Passionate about technology and innovation</p>
+                <h2 class="section-title gradient-holographic text-3d">About Me</h2>
+                <p class="section-subtitle glow-neon">Passionate about technology and innovation</p>
             </div>
             <div class="about-content">
                 <div class="about-text">
-                    <div class="about-card glass-effect">
-                        <h3>Who I Am</h3>
+                    <div class="about-card holographic-card interactive-3d">
+                        <h3 class="gradient-cyber">Who I Am</h3>
                         <p>
-                            I'm Pranay Gajbhiye, a dedicated B.Tech Computer Science 
-                            Engineering student in my 2nd year at KDK College of 
-                            Engineering, Nagpur. Born on September 6th, 2005, I'm 
+                            I'm Pranay Gajbhiye, a dedicated B.Tech Computer Science
+                            Engineering student in my 2nd year at KDK College of
+                            Engineering, Nagpur. Born on September 6th, 2005, I'm
                             passionate about creating innovative digital solutions.
                         </p>
                         <div class="stats">
-                            <div class="stat-item">
-                                <span class="stat-number gradient-text">2+</span>
+                            <div class="stat-item data-visualization">
+                                <span class="stat-number gradient-neon text-3d-neon">2+</span>
                                 <span class="stat-label">Years Coding</span>
                             </div>
-                            <div class="stat-item">
-                                <span class="stat-number gradient-text">10+</span>
+                            <div class="stat-item data-visualization">
+                                <span class="stat-number gradient-neon text-3d-neon">10+</span>
                                 <span class="stat-label">Projects</span>
                             </div>
+                            <div class="stat-item data-visualization">
+                                <span class="stat-number gradient-neon text-3d-neon">50+</span>
+                                <span class="stat-label">Commits</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="profile-container">
+                        <div class="profile-bg holographic-card">
+                            <div class="energy-orb" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+                        </div>
+                        <div class="tech-orbit">
+                            <div class="orbit-item glass-neon magnetic-hover" data-tech="React">
+                                <i class="fab fa-react" style="color: var(--neon-cyan);"></i>
+                            </div>
+                            <div class="orbit-item glass-neon magnetic-hover" data-tech="JavaScript">
+                                <i class="fab fa-js-square" style="color: var(--neon-yellow);"></i>
+                            </div>
+                            <div class="orbit-item glass-neon magnetic-hover" data-tech="Python">
+                                <i class="fab fa-python" style="color: var(--neon-green);"></i>
+                            </div>
+                            <div class="orbit-item glass-neon magnetic-hover" data-tech="Node.js">
+                                <i class="fab fa-node-js" style="color: var(--neon-purple);"></i>
+                            </div>
+                        </div>
+                        <!-- Neural Network Connections -->
+                        <svg class="neural-network" width="100%" height="100%" style="position: absolute; top: 0; left: 0;">
+                            <path class="neural-connection" d="M150,50 Q200,100 250,150"></path>
+                            <path class="neural-connection" d="M250,150 Q200,200 150,250"></path>
+                            <path class="neural-connection" d="M150,250 Q100,200 50,150"></path>
+                            <path class="neural-connection" d="M50,150 Q100,100 150,50"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
                             <div class="stat-item">
                                 <span class="stat-number gradient-text">50+</span>
                                 <span class="stat-label">Commits</span>
@@ -179,94 +250,210 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="skills">
+    <section id="skills" class="skills cosmic-background">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title gradient-text">Skills & Technologies</h2>
-                <p class="section-subtitle">Technologies I work with</p>
+                <h2 class="section-title gradient-rainbow text-3d">Skills & Technologies</h2>
+                <p class="section-subtitle gradient-cyber">Technologies I work with</p>
             </div>
             <div class="skills-grid">
-                <div class="skill-category glass-effect">
-                    <h3><i class="fas fa-code"></i> Frontend</h3>
+                <div class="skill-category holographic-card interactive-3d">
+                    <h3 class="gradient-neon"><i class="fas fa-code" style="color: var(--neon-cyan);"></i> Frontend</h3>
                     <div class="skill-items">
                         <div class="skill-item">
-                            <span>HTML5/CSS3</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="90%"></div>
+                            <span class="glow-neon">HTML5/CSS3</span>
+                            <div class="skill-bar cyber-grid">
+                                <div class="skill-progress" data-width="90%" style="background: var(--gradient-neon);"></div>
                             </div>
                         </div>
                         <div class="skill-item">
-                            <span>JavaScript</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="85%"></div>
+                            <span class="glow-neon">JavaScript</span>
+                            <div class="skill-bar cyber-grid">
+                                <div class="skill-progress" data-width="85%" style="background: var(--gradient-holographic);"></div>
                             </div>
                         </div>
                         <div class="skill-item">
-                            <span>React.js</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="80%"></div>
+                            <span class="glow-neon">React.js</span>
+                            <div class="skill-bar cyber-grid">
+                                <div class="skill-progress" data-width="80%" style="background: var(--gradient-cyber);"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="skill-category glass-effect">
-                    <h3><i class="fas fa-server"></i> Backend</h3>
+                <div class="skill-category holographic-card interactive-3d">
+                    <h3 class="gradient-neon"><i class="fas fa-server" style="color: var(--neon-pink);"></i> Backend</h3>
                     <div class="skill-items">
                         <div class="skill-item">
-                            <span>Python</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="85%"></div>
+                            <span class="glow-neon">Python</span>
+                            <div class="skill-bar cyber-grid">
+                                <div class="skill-progress" data-width="85%" style="background: var(--gradient-neon);"></div>
                             </div>
                         </div>
                         <div class="skill-item">
-                            <span>Node.js</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="75%"></div>
+                            <span class="glow-neon">Node.js</span>
+                            <div class="skill-bar cyber-grid">
+                                <div class="skill-progress" data-width="75%" style="background: var(--gradient-holographic);"></div>
                             </div>
                         </div>
                         <div class="skill-item">
-                            <span>MongoDB</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="70%"></div>
+                            <span class="glow-neon">MongoDB</span>
+                            <div class="skill-bar cyber-grid">
+                                <div class="skill-progress" data-width="70%" style="background: var(--gradient-cyber);"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="skill-category glass-effect">
-                    <h3><i class="fas fa-tools"></i> Tools</h3>
+                <div class="skill-category holographic-card interactive-3d">
+                    <h3 class="gradient-neon"><i class="fas fa-tools" style="color: var(--neon-purple);"></i> Tools</h3>
                     <div class="skill-items">
                         <div class="skill-item">
-                            <span>Git/GitHub</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="90%"></div>
+                            <span class="glow-neon">Git/GitHub</span>
+                            <div class="skill-bar cyber-grid">
+                                <div class="skill-progress" data-width="90%" style="background: var(--gradient-neon);"></div>
                             </div>
                         </div>
                         <div class="skill-item">
-                            <span>VS Code</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="95%"></div>
+                            <span class="glow-neon">VS Code</span>
+                            <div class="skill-bar cyber-grid">
+                                <div class="skill-progress" data-width="95%" style="background: var(--gradient-holographic);"></div>
                             </div>
                         </div>
                         <div class="skill-item">
-                            <span>Figma</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="75%"></div>
+                            <span class="glow-neon">Figma</span>
+                            <div class="skill-bar cyber-grid">
+                                <div class="skill-progress" data-width="75%" style="background: var(--gradient-cyber);"></div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <!-- 3D Skill Visualization -->
+            <div class="skill-visualization">
+                <div class="energy-orb" style="margin: 2rem auto;"></div>
+                <div class="data-stream-container">
+                    <div class="data-stream">Frontend</div>
+                    <div class="data-stream">Backend</div>
+                    <div class="data-stream">DevOps</div>
+                    <div class="data-stream">AI/ML</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="projects">
+    <section id="projects" class="projects cosmic-background">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title gradient-text">Featured Projects</h2>
-                <p class="section-subtitle">Some of my recent work</p>
+                <h2 class="section-title gradient-holographic text-3d">Featured Projects</h2>
+                <p class="section-subtitle glow-holographic">Some of my recent work</p>
             </div>
             <div class="projects-grid">
+                <div class="project-card holographic-card interactive-3d magnetic-hover">
+                    <div class="project-image" style="background: var(--gradient-neon);">
+                        <div class="project-overlay">
+                            <a href="#" class="project-link glass-neon">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            <a href="#" class="project-code glass-neon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                        <div class="energy-orb" style="position: absolute; top: 20px; right: 20px; width: 40px; height: 40px;"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="gradient-cyber">E-Commerce Platform</h3>
+                        <p>Full-stack e-commerce solution with React and Node.js featuring real-time updates and secure payments</p>
+                        <div class="project-tech">
+                            <span class="tech-tag glass-neon">React</span>
+                            <span class="tech-tag glass-neon">Node.js</span>
+                            <span class="tech-tag glass-neon">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card holographic-card interactive-3d magnetic-hover">
+                    <div class="project-image" style="background: var(--gradient-holographic);">
+                        <div class="project-overlay">
+                            <a href="#" class="project-link glass-neon">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            <a href="#" class="project-code glass-neon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                        <div class="energy-orb" style="position: absolute; top: 20px; right: 20px; width: 40px; height: 40px;"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="gradient-cyber">AI Task Manager</h3>
+                        <p>Collaborative task manager with AI-powered insights and real-time team collaboration features</p>
+                        <div class="project-tech">
+                            <span class="tech-tag glass-neon">Vue.js</span>
+                            <span class="tech-tag glass-neon">Express</span>
+                            <span class="tech-tag glass-neon">Socket.io</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card holographic-card interactive-3d magnetic-hover">
+                    <div class="project-image" style="background: var(--gradient-cyber);">
+                        <div class="project-overlay">
+                            <a href="#" class="project-link glass-neon">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            <a href="#" class="project-code glass-neon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                        <div class="energy-orb" style="position: absolute; top: 20px; right: 20px; width: 40px; height: 40px;"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="gradient-cyber">Cyber Weather Hub</h3>
+                        <p>Futuristic weather dashboard with AR visualization and satellite data integration</p>
+                        <div class="project-tech">
+                            <span class="tech-tag glass-neon">JavaScript</span>
+                            <span class="tech-tag glass-neon">WebGL</span>
+                            <span class="tech-tag glass-neon">Three.js</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card holographic-card interactive-3d magnetic-hover">
+                    <div class="project-image" style="background: var(--gradient-aurora);">
+                        <div class="project-overlay">
+                            <a href="#" class="project-link glass-neon">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            <a href="#" class="project-code glass-neon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                        <div class="energy-orb" style="position: absolute; top: 20px; right: 20px; width: 40px; height: 40px;"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="gradient-cyber">Neural Network Visualizer</h3>
+                        <p>Interactive 3D visualization of neural networks with real-time training animation</p>
+                        <div class="project-tech">
+                            <span class="tech-tag glass-neon">Python</span>
+                            <span class="tech-tag glass-neon">TensorFlow</span>
+                            <span class="tech-tag glass-neon">D3.js</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Project Stats Visualization -->
+            <div class="project-stats">
+                <div class="stat-card data-visualization">
+                    <div class="stat-value gradient-neon text-3d-neon">25+</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-card data-visualization">
+                    <div class="stat-value gradient-neon text-3d-neon">500+</div>
+                    <div class="stat-label">GitHub Commits</div>
+                </div>
+                <div class="stat-card data-visualization">
+                    <div class="stat-value gradient-neon text-3d-neon">15+</div>
+                    <div class="stat-label">Technologies</div>
+                </div>
+            </div>
+        </div>
+    </section>
                 <div class="project-card glass-effect">
                     <div class="project-image">
                         <div class="project-overlay">
@@ -335,79 +522,156 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <section id="contact" class="contact cosmic-background">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title gradient-text">Get In Touch</h2>
-                <p class="section-subtitle">Let's create something amazing together</p>
+                <h2 class="section-title gradient-plasma text-3d-holographic">Get In Touch</h2>
+                <p class="section-subtitle glow-holographic">Let's create something amazing together</p>
+                <!-- Neural Network Animation -->
+                <svg class="neural-network" width="200" height="100" style="margin: 2rem auto; display: block;">
+                    <path class="neural-connection" d="M20,20 Q100,10 180,20 Q100,30 20,20"></path>
+                    <path class="neural-connection" d="M20,50 Q100,40 180,50 Q100,60 20,50"></path>
+                    <path class="neural-connection" d="M20,80 Q100,70 180,80 Q100,90 20,80"></path>
+                </svg>
             </div>
             <div class="contact-content">
                 <div class="contact-info">
-                    <div class="contact-card glass-effect">
-                        <i class="fas fa-envelope"></i>
-                        <h3>Email</h3>
-                        <p>pranaygajbhiye777@gmail.com</p>
+                    <div class="contact-card holographic-card interactive-3d magnetic-hover">
+                        <i class="fas fa-envelope" style="color: var(--neon-cyan);"></i>
+                        <h3 class="gradient-neon">Email</h3>
+                        <p class="glow-text">pranaygajbhiye777@gmail.com</p>
+                        <div class="energy-orb" style="position: absolute; top: 10px; right: 10px; width: 20px; height: 20px;"></div>
                     </div>
-                    <div class="contact-card glass-effect">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3>Location</h3>
-                        <p>Nagpur, Maharashtra, India</p>
+                    <div class="contact-card holographic-card interactive-3d magnetic-hover">
+                        <i class="fas fa-map-marker-alt" style="color: var(--neon-pink);"></i>
+                        <h3 class="gradient-neon">Location</h3>
+                        <p class="glow-text">Nagpur, Maharashtra, India</p>
+                        <div class="energy-orb" style="position: absolute; top: 10px; right: 10px; width: 20px; height: 20px;"></div>
                     </div>
-                    <div class="contact-card glass-effect">
-                        <i class="fas fa-graduation-cap"></i>
-                        <h3>Education</h3>
-                        <p>KDK College of Engineering</p>
+                    <div class="contact-card holographic-card interactive-3d magnetic-hover">
+                        <i class="fas fa-graduation-cap" style="color: var(--neon-purple);"></i>
+                        <h3 class="gradient-neon">Education</h3>
+                        <p class="glow-text">KDK College of Engineering</p>
+                        <div class="energy-orb" style="position: absolute; top: 10px; right: 10px; width: 20px; height: 20px;"></div>
+                    </div>
+                    <div class="contact-card holographic-card interactive-3d magnetic-hover">
+                        <i class="fas fa-calendar-alt" style="color: var(--neon-green);"></i>
+                        <h3 class="gradient-neon">Availability</h3>
+                        <p class="glow-text">Open for opportunities</p>
+                        <div class="energy-orb" style="position: absolute; top: 10px; right: 10px; width: 20px; height: 20px;"></div>
                     </div>
                 </div>
-                <form class="contact-form glass-effect">
-                    <div class="form-group">
-                        <input type="text" placeholder="Your Name" required>
+                <div class="contact-form-container">
+                    <form class="contact-form holographic-card interactive-3d">
+                        <h3 class="gradient-cyber text-3d">Send a Message</h3>
+                        <div class="form-group">
+                            <label class="glow-neon">Name</label>
+                            <input type="text" class="glass-neon" placeholder="Your Name" required>
+                            <div class="input-underline"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="glow-neon">Email</label>
+                            <input type="email" class="glass-neon" placeholder="Your Email" required>
+                            <div class="input-underline"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="glow-neon">Subject</label>
+                            <input type="text" class="glass-neon" placeholder="Subject" required>
+                            <div class="input-underline"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="glow-neon">Message</label>
+                            <textarea class="glass-neon" placeholder="Your Message" rows="5" required></textarea>
+                            <div class="input-underline"></div>
+                        </div>
+                        <button type="submit" class="btn btn-holographic interactive-3d">
+                            <span>Send Message</span>
+                            <i class="fas fa-rocket"></i>
+                        </button>
+                    </form>
+                    <!-- Contact Visualization -->
+                    <div class="contact-visualization">
+                        <div class="data-stream-container">
+                            <div class="data-stream active">Email</div>
+                            <div class="data-stream">LinkedIn</div>
+                            <div class="data-stream">GitHub</div>
+                            <div class="data-stream">Portfolio</div>
+                        </div>
+                        <div class="hologram-display" style="margin-top: 2rem;">
+                            <div class="energy-orb"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea placeholder="Your Message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary glass-btn">
-                        <span>Send Message</span>
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
+                </div>
             </div>
+        </div>
+        <!-- Quantum Communication Grid -->
+        <div class="quantum-grid">
+            <div class="quantum-dot" style="top: 10%; left: 20%;"></div>
+            <div class="quantum-dot" style="top: 30%; left: 80%;"></div>
+            <div class="quantum-dot" style="bottom: 20%; left: 15%;"></div>
+            <div class="quantum-dot" style="bottom: 40%; right: 25%;"></div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer cosmic-background">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-text">
-                    <p>&copy; 2025 Pranay Gajbhiye. All rights reserved.</p>
+                    <p class="gradient-holographic">&copy; 2025 Pranay Gajbhiye. Crafted with ❤️ and lots of ☕</p>
+                    <p class="glow-text">Powered by creativity and cutting-edge technology</p>
                 </div>
                 <div class="footer-social">
-                    <a href="https://github.com/Pusparaj99op" target="_blank">
+                    <a href="https://github.com/Pusparaj99op" target="_blank"
+                       class="social-link glass-neon magnetic-hover"
+                       title="GitHub">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="https://www.linkedin.com/in/pranaygajbhiye/" target="_blank">
+                    <a href="https://www.linkedin.com/in/pranaygajbhiye/"
+                       target="_blank"
+                       class="social-link glass-neon magnetic-hover"
+                       title="LinkedIn">
                         <i class="fab fa-linkedin"></i>
                     </a>
-                    <a href="https://www.youtube.com/@AnonymousRingtonesYT" target="_blank">
+                    <a href="https://www.youtube.com/@AnonymousRingtonesYT"
+                       target="_blank"
+                       class="social-link glass-neon magnetic-hover"
+                       title="YouTube">
                         <i class="fab fa-youtube"></i>
                     </a>
-                    <a href="https://www.instagram.com/pranaygajbhiye777/" target="_blank">
+                    <a href="https://www.instagram.com/pranaygajbhiye777/"
+                       target="_blank"
+                       class="social-link glass-neon magnetic-hover"
+                       title="Instagram">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://unstop.com/u/pranagaj69179" target="_blank">
+                    <a href="https://unstop.com/u/pranagaj69179"
+                       target="_blank"
+                       class="social-link glass-neon magnetic-hover"
+                       title="Unstop">
                         <i class="fas fa-trophy"></i>
                     </a>
                 </div>
+            </div>
+            <!-- Footer Wave Animation -->
+            <div class="footer-wave">
+                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
+                          class="shape-fill" style="fill: var(--neon-cyan); opacity: 0.3;"></path>
+                </svg>
+            </div>
+            <!-- Footer Particles -->
+            <div class="footer-particles">
+                <div class="quantum-dot" style="top: 20%; left: 10%;"></div>
+                <div class="quantum-dot" style="top: 60%; left: 30%;"></div>
+                <div class="quantum-dot" style="top: 40%; right: 20%;"></div>
+                <div class="quantum-dot" style="bottom: 30%; right: 10%;"></div>
             </div>
         </div>
     </footer>
 
     <script src="js/main.js"></script>
     <script src="js/animations.js"></script>
-    <script src="js/particles.js"></script>
+    <script src="js/particles-enhanced.js"></script>
 </body>
 </html>

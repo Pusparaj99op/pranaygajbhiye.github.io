@@ -457,108 +457,826 @@ class ErrorHandler {
   }
 }
 
-// Main Application
-class PortfolioApp {
+// Enhanced Loading Screen
+class LoadingScreen {
+  constructor() {
+    this.loadingScreen = document.getElementById('loading-screen');
+    this.progressBar = document.querySelector('.progress-bar');
+    this.loadingText = document.querySelector('.loading-text');
+    this.init();
+  }
+
+  init() {
+    this.createLoadingSequence();
+  }
+
+  createLoadingSequence() {
+    const texts = [
+      'INITIALIZING...',
+      'LOADING MATRIX...',
+      'ESTABLISHING CONNECTION...',
+      'PRANAY GAJBHIYE',
+      'READY TO LAUNCH'
+    ];
+
+    let currentIndex = 0;
+    const textInterval = setInterval(() => {
+      this.loadingText.textContent = texts[currentIndex];
+      this.loadingText.setAttribute('data-text', texts[currentIndex]);
+      currentIndex++;
+
+      if (currentIndex >= texts.length) {
+        clearInterval(textInterval);
+        setTimeout(() => this.hideLoading(), 500);
+      }
+    }, 600);
+  }
+
+  hideLoading() {
+    this.loadingScreen.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+
+    setTimeout(() => {
+      this.loadingScreen.style.display = 'none';
+    }, 500);
+  }
+}
+
+// Enhanced Loading Screen Manager
+class LoadingScreenManager {
+  constructor() {
+    this.loadingScreen = document.getElementById('loading-screen');
+    this.progressBar = document.querySelector('.progress-bar');
+    this.loadingText = document.querySelector('.loading-text');
+    this.matrixRain = document.querySelector('.matrix-rain-effect');
+    this.loadingDots = document.querySelectorAll('.loading-dots span');
+    this.init();
+  }
+
+  init() {
+    this.createMatrixRain();
+    this.animateLoadingDots();
+    this.simulateLoading();
+  }
+
+  createMatrixRain() {
+    const characters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+
+    for (let i = 0; i < 50; i++) {
+      const drop = document.createElement('div');
+      drop.className = 'matrix-drop';
+      drop.style.left = Math.random() * 100 + '%';
+      drop.style.animationDelay = Math.random() * 2 + 's';
+      drop.style.animationDuration = (Math.random() * 3 + 2) + 's';
+
+      let text = '';
+      for (let j = 0; j < 10; j++) {
+        text += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      drop.textContent = text;
+
+      this.matrixRain.appendChild(drop);
+    }
+  }
+
+  animateLoadingDots() {
+    this.loadingDots.forEach((dot, index) => {
+      dot.style.animationDelay = index * 0.3 + 's';
+    });
+  }
+
+  simulateLoading() {
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += Math.random() * 15;
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+        setTimeout(() => this.hideLoadingScreen(), 500);
+      }
+      this.progressBar.style.width = progress + '%';
+    }, 200);
+  }
+
+  hideLoadingScreen() {
+    this.loadingScreen.style.opacity = '0';
+    setTimeout(() => {
+      this.loadingScreen.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }, 500);
+  }
+}
+
+// Enhanced Theme Manager with Particle Integration
+class EnhancedThemeManager extends ThemeManager {
+  constructor() {
+    super();
+    this.particleSystem = null;
+  }
+
+  setTheme(theme) {
+    super.setTheme(theme);
+    this.animateThemeTransition();
+    this.updateParticles();
+  }
+
+  animateThemeTransition() {
+    document.body.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+
+    // Create ripple effect
+    const ripple = document.createElement('div');
+    ripple.className = 'theme-ripple';
+    ripple.style.cssText = `
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: ${this.currentTheme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)'};
+      z-index: 9999;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: all 0.5s ease-out;
+    `;
+
+    document.body.appendChild(ripple);
+
+    setTimeout(() => {
+      ripple.style.width = '200vmax';
+      ripple.style.height = '200vmax';
+    }, 10);
+
+    setTimeout(() => {
+      document.body.removeChild(ripple);
+    }, 500);
+  }
+
+  updateParticles() {
+    if (this.particleSystem && this.particleSystem.updateTheme) {
+      this.particleSystem.updateTheme(this.currentTheme);
+    }
+  }
+
+  setParticleSystem(system) {
+    this.particleSystem = system;
+  }
+}
+
+// Advanced 3D Text Effects Manager
+class Text3DManager {
   constructor() {
     this.init();
   }
 
   init() {
-    // Wait for DOM to be fully loaded
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => this.initializeApp());
-    } else {
-      this.initializeApp();
-    }
+    this.enhance3DTexts();
+    this.createHologramTexts();
+    this.addTextInteractivity();
   }
 
-  initializeApp() {
-    try {
-      // Initialize all managers
-      this.themeManager = new ThemeManager();
-      this.navigationManager = new NavigationManager();
-      this.animationManager = new AnimationManager();
-      this.formHandler = new FormHandler();
-      this.performanceMonitor = new PerformanceMonitor();
-      this.errorHandler = new ErrorHandler();
+  enhance3DTexts() {
+    const text3DElements = document.querySelectorAll('.text-3d, .text-3d-neon, .text-3d-cyber, .text-3d-holographic');
 
-      // Initialize additional features
-      this.initializeTooltips();
-      this.initializeAccessibility();
-
-      console.log('Portfolio app initialized successfully');
-
-    } catch (error) {
-      console.error('Failed to initialize portfolio app:', error);
-    }
-  }
-
-  initializeTooltips() {
-    // Add tooltips to social links and other interactive elements
-    const tooltipElements = document.querySelectorAll('[data-tooltip]');
-
-    tooltipElements.forEach(element => {
-      element.addEventListener('mouseenter', (e) => {
-        this.showTooltip(e.target, e.target.getAttribute('data-tooltip'));
+    text3DElements.forEach(element => {
+      element.addEventListener('mouseenter', () => {
+        element.style.transform = 'perspective(1000px) rotateX(15deg) rotateY(15deg) translateZ(30px)';
       });
 
       element.addEventListener('mouseleave', () => {
-        this.hideTooltip();
+        element.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+      });
+
+      element.addEventListener('mousemove', (e) => {
+        const rect = element.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = (y - centerY) / centerY * 20;
+        const rotateY = (x - centerX) / centerX * 20;
+
+        element.style.transform = `perspective(1000px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
       });
     });
   }
 
-  showTooltip(element, text) {
-    const tooltip = document.createElement('div');
-    tooltip.className = 'tooltip';
-    tooltip.textContent = text;
-    document.body.appendChild(tooltip);
+  createHologramTexts() {
+    const hologramTexts = document.querySelectorAll('.hologram-text');
 
-    const rect = element.getBoundingClientRect();
-    tooltip.style.left = rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2) + 'px';
-    tooltip.style.top = rect.top - tooltip.offsetHeight - 10 + 'px';
+    hologramTexts.forEach(element => {
+      const text = element.getAttribute('data-text') || element.textContent;
+      element.setAttribute('data-text', text);
 
-    setTimeout(() => tooltip.classList.add('show'), 10);
+      // Create glitch layers
+      for (let i = 0; i < 3; i++) {
+        const layer = document.createElement('span');
+        layer.textContent = text;
+        layer.className = `hologram-layer layer-${i}`;
+        layer.style.cssText = `
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          color: ${['#ff0080', '#00ffff', '#ffff00'][i]};
+          animation: hologram-glitch-${i} 2s infinite;
+          opacity: 0.7;
+        `;
+        element.appendChild(layer);
+      }
+    });
   }
 
-  hideTooltip() {
-    const tooltip = document.querySelector('.tooltip');
-    if (tooltip) {
-      tooltip.classList.remove('show');
-      setTimeout(() => {
-        if (tooltip.parentNode) {
-          tooltip.parentNode.removeChild(tooltip);
+  addTextInteractivity() {
+    const interactiveTexts = document.querySelectorAll('.gradient-holographic, .gradient-cyber, .gradient-neon');
+
+    interactiveTexts.forEach(element => {
+      element.addEventListener('mouseenter', () => {
+        element.style.animationDuration = '0.5s';
+        element.style.filter = 'brightness(1.5) saturate(1.5)';
+      });
+
+      element.addEventListener('mouseleave', () => {
+        element.style.animationDuration = '';
+        element.style.filter = '';
+      });
+    });
+  }
+}
+
+// Magnetic Hover Effects Manager
+class MagneticHoverManager {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    const magneticElements = document.querySelectorAll('.magnetic-hover');
+
+    magneticElements.forEach(element => {
+      element.addEventListener('mouseenter', () => {
+        element.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      });
+
+      element.addEventListener('mousemove', (e) => {
+        const rect = element.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        const strength = 0.3;
+        const moveX = x * strength;
+        const moveY = y * strength;
+
+        element.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.1)`;
+      });
+
+      element.addEventListener('mouseleave', () => {
+        element.style.transform = 'translate(0px, 0px) scale(1)';
+      });
+    });
+  }
+}
+
+// Quantum Dots Animation Manager
+class QuantumDotsManager {
+  constructor() {
+    this.dots = document.querySelectorAll('.quantum-dot');
+    this.init();
+  }
+
+  init() {
+    this.dots.forEach((dot, index) => {
+      // Random flicker intensity
+      dot.style.setProperty('--flicker-intensity', Math.random() * 0.5 + 0.5);
+
+      // Random position changes
+      setInterval(() => {
+        const newTop = Math.random() * 80 + 10;
+        const newLeft = Math.random() * 80 + 10;
+
+        dot.style.transition = 'all 3s ease-in-out';
+        dot.style.top = newTop + '%';
+        dot.style.left = newLeft + '%';
+      }, 5000 + index * 1000);
+    });
+  }
+}
+
+// Data Visualization Manager
+class DataVisualizationManager {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    this.animateStatNumbers();
+    this.createDataStreams();
+  }
+
+  animateStatNumbers() {
+    const statNumbers = document.querySelectorAll('.stat-number');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const element = entry.target;
+          const finalValue = parseInt(element.textContent);
+          let currentValue = 0;
+          const increment = finalValue / 50;
+          const duration = 2000;
+          const stepTime = duration / 50;
+
+          const counter = setInterval(() => {
+            currentValue += increment;
+            if (currentValue >= finalValue) {
+              currentValue = finalValue;
+              clearInterval(counter);
+            }
+            element.textContent = Math.floor(currentValue) + '+';
+          }, stepTime);
+
+          observer.unobserve(element);
         }
-      }, 200);
+      });
+    });
+
+    statNumbers.forEach(stat => observer.observe(stat));
+  }
+
+  createDataStreams() {
+    const dataElements = document.querySelectorAll('.data-visualization');
+
+    dataElements.forEach(element => {
+      const stream = document.createElement('div');
+      stream.className = 'data-stream';
+      stream.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+        animation: data-stream 3s infinite;
+      `;
+      element.style.position = 'relative';
+      element.appendChild(stream);
+    });
+  }
+}
+
+// Custom Animated Cursor Manager
+class CustomCursorManager {
+  constructor() {
+    this.cursor = null;
+    this.cursorTrail = [];
+    this.init();
+  }
+
+  init() {
+    this.createCursor();
+    this.bindEvents();
+  }
+
+  createCursor() {
+    // Main cursor
+    this.cursor = document.createElement('div');
+    this.cursor.className = 'custom-cursor';
+    this.cursor.style.cssText = `
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle, var(--neon-cyan), transparent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: difference;
+      transition: transform 0.1s ease;
+    `;
+    document.body.appendChild(this.cursor);
+
+    // Cursor trail
+    for (let i = 0; i < 10; i++) {
+      const trail = document.createElement('div');
+      trail.className = 'cursor-trail';
+      trail.style.cssText = `
+        position: fixed;
+        width: ${15 - i}px;
+        height: ${15 - i}px;
+        background: radial-gradient(circle, var(--neon-purple), transparent);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        opacity: ${(10 - i) / 20};
+        transition: all 0.1s ease;
+      `;
+      document.body.appendChild(trail);
+      this.cursorTrail.push(trail);
     }
   }
 
-  initializeAccessibility() {
-    // Add keyboard navigation support
+  bindEvents() {
+    let mouseX = 0, mouseY = 0;
+    let trailX = 0, trailY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      this.cursor.style.left = mouseX - 10 + 'px';
+      this.cursor.style.top = mouseY - 10 + 'px';
+    });
+
+    // Animate trail
+    const animateTrail = () => {
+      trailX += (mouseX - trailX) * 0.1;
+      trailY += (mouseY - trailY) * 0.1;
+
+      this.cursorTrail.forEach((trail, index) => {
+        const delay = index * 0.02;
+        trail.style.left = trailX - (7.5 - index * 0.5) + 'px';
+        trail.style.top = trailY - (7.5 - index * 0.5) + 'px';
+      });
+
+      requestAnimationFrame(animateTrail);
+    };
+    animateTrail();
+
+    // Hover effects
+    const hoverElements = document.querySelectorAll('a, button, .interactive-3d, .magnetic-hover');
+    hoverElements.forEach(element => {
+      element.addEventListener('mouseenter', () => {
+        this.cursor.style.transform = 'scale(2)';
+        this.cursor.style.background = 'radial-gradient(circle, var(--neon-pink), transparent)';
+      });
+
+      element.addEventListener('mouseleave', () => {
+        this.cursor.style.transform = 'scale(1)';
+        this.cursor.style.background = 'radial-gradient(circle, var(--neon-cyan), transparent)';
+      });
+    });
+  }
+}
+
+// Main Application
+class PortfolioApp {
+  constructor() {
+    this.themeManager = new EnhancedThemeManager();
+    this.navigationManager = new NavigationManager();
+    this.loadingManager = new LoadingScreenManager();
+    this.text3DManager = new Text3DManager();
+    this.magneticHoverManager = new MagneticHoverManager();
+    this.quantumDotsManager = new QuantumDotsManager();
+    this.dataVisualizationManager = new DataVisualizationManager();
+    this.customCursorManager = new CustomCursorManager();
+    this.init();
+  }
+
+  init() {
+    this.initializeParticles();
+    this.initializeScrollEffects();
+    this.initializeSkillBars();
+    this.initializeProjectCards();
+    this.initializeContactForm();
+    this.addAdvancedInteractions();
+  }
+
+  initializeParticles() {
+    if (typeof ParticleSystem !== 'undefined') {
+      const particleSystem = new ParticleSystem();
+      this.themeManager.setParticleSystem(particleSystem);
+    }
+  }
+
+  initializeScrollEffects() {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+        }
+      });
+    }, observerOptions);
+
+    // Observe elements for scroll animations
+    const animateElements = document.querySelectorAll('.holographic-card, .floating-card, .social-link');
+    animateElements.forEach(el => observer.observe(el));
+  }
+
+  initializeSkillBars() {
+    const skillBars = document.querySelectorAll('.skill-progress');
+
+    const skillObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const progressBar = entry.target.querySelector('.skill-fill');
+          const percentage = progressBar.getAttribute('data-percentage');
+
+          setTimeout(() => {
+            progressBar.style.width = percentage + '%';
+          }, 500);
+
+          skillObserver.unobserve(entry.target);
+        }
+      });
+    });
+
+    skillBars.forEach(skill => skillObserver.observe(skill));
+  }
+
+  initializeProjectCards() {
+    const projectCards = document.querySelectorAll('.project-card');
+
+    projectCards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-20px) rotateX(10deg) rotateY(5deg) scale(1.05)';
+        card.style.boxShadow = '0 30px 60px rgba(0, 0, 0, 0.5), 0 0 50px var(--neon-cyan)';
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0) rotateX(0deg) rotateY(0deg) scale(1)';
+        card.style.boxShadow = '';
+      });
+
+      // Add click ripple effect
+      card.addEventListener('click', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const ripple = document.createElement('div');
+        ripple.style.cssText = `
+          position: absolute;
+          left: ${x}px;
+          top: ${y}px;
+          width: 0;
+          height: 0;
+          border-radius: 50%;
+          background: radial-gradient(circle, var(--neon-cyan), transparent);
+          transform: translate(-50%, -50%);
+          animation: ripple-effect 0.6s ease-out;
+          pointer-events: none;
+        `;
+
+        card.style.position = 'relative';
+        card.appendChild(ripple);
+
+        setTimeout(() => {
+          if (card.contains(ripple)) {
+            card.removeChild(ripple);
+          }
+        }, 600);
+      });
+    });
+  }
+
+  initializeContactForm() {
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+      const inputs = contactForm.querySelectorAll('input, textarea');
+
+      inputs.forEach(input => {
+        // Add focus effects
+        input.addEventListener('focus', () => {
+          input.style.boxShadow = '0 0 20px var(--neon-cyan)';
+          input.style.borderColor = 'var(--neon-cyan)';
+        });
+
+        input.addEventListener('blur', () => {
+          input.style.boxShadow = '';
+          input.style.borderColor = '';
+        });
+
+        // Add typing effects
+        input.addEventListener('input', () => {
+          if (input.value) {
+            input.style.color = 'var(--neon-cyan)';
+          } else {
+            input.style.color = '';
+          }
+        });
+      });
+
+      // Add form submission effects
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+
+        submitBtn.textContent = 'Sending...';
+        submitBtn.style.background = 'var(--gradient-cyber)';
+        submitBtn.disabled = true;
+
+        // Simulate sending
+        setTimeout(() => {
+          submitBtn.textContent = 'Message Sent!';
+          submitBtn.style.background = 'var(--gradient-holographic)';
+
+          setTimeout(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.style.background = '';
+            submitBtn.disabled = false;
+            contactForm.reset();
+          }, 2000);
+        }, 2000);
+      });
+    }
+  }
+
+  addAdvancedInteractions() {
+    // Add parallax effect to background elements
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const parallaxElements = document.querySelectorAll('.cosmic-background');
+
+      parallaxElements.forEach(element => {
+        const speed = 0.5;
+        element.style.transform = `translateY(${scrolled * speed}px)`;
+      });
+    });
+
+    // Add hover sound effects (visual feedback)
+    const interactiveElements = document.querySelectorAll('.btn, .nav-link, .social-link');
+    interactiveElements.forEach(element => {
+      element.addEventListener('mouseenter', () => {
+        // Create visual pulse effect
+        const pulse = document.createElement('div');
+        pulse.style.cssText = `
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 0;
+          height: 0;
+          border-radius: 50%;
+          background: radial-gradient(circle, var(--neon-cyan), transparent);
+          transform: translate(-50%, -50%);
+          animation: pulse-effect 0.6s ease-out;
+          pointer-events: none;
+          z-index: -1;
+        `;
+
+        element.style.position = 'relative';
+        element.appendChild(pulse);
+
+        setTimeout(() => {
+          if (element.contains(pulse)) {
+            element.removeChild(pulse);
+          }
+        }, 600);
+      });
+    });
+
+    // Add keyboard navigation enhancements
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Tab') {
-        document.body.classList.add('keyboard-nav');
+        document.body.classList.add('keyboard-navigation');
       }
     });
 
     document.addEventListener('mousedown', () => {
-      document.body.classList.remove('keyboard-nav');
+      document.body.classList.remove('keyboard-navigation');
     });
-
-    // Add skip link functionality
-    const skipLink = document.querySelector('.skip-link');
-    if (skipLink) {
-      skipLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        const target = document.querySelector(skipLink.getAttribute('href'));
-        if (target) {
-          target.focus();
-          target.scrollIntoView();
-        }
-      });
-    }
   }
 }
 
-// Initialize the application
-const app = new PortfolioApp();
+// Initialize application when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  const app = new PortfolioApp();
+
+  // Add some CSS animations dynamically
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes ripple-effect {
+      0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+      }
+      100% {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+      }
+    }
+
+    @keyframes pulse-effect {
+      0% {
+        width: 0;
+        height: 0;
+        opacity: 0.8;
+      }
+      100% {
+        width: 100px;
+        height: 100px;
+        opacity: 0;
+      }
+    }
+
+    @keyframes hologram-glitch-0 {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-2px); }
+      40% { transform: translateX(2px); }
+      60% { transform: translateX(-1px); }
+      80% { transform: translateX(1px); }
+    }
+
+    @keyframes hologram-glitch-1 {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(1px); }
+      50% { transform: translateX(-1px); }
+      75% { transform: translateX(2px); }
+    }
+
+    @keyframes hologram-glitch-2 {
+      0%, 100% { transform: translateX(0); }
+      30% { transform: translateX(-1px); }
+      60% { transform: translateX(1px); }
+      90% { transform: translateX(-2px); }
+    }
+
+    .matrix-drop {
+      position: absolute;
+      color: var(--neon-green);
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      line-height: 14px;
+      animation: matrix-rain linear infinite;
+      opacity: 0.8;
+      text-shadow: 0 0 5px var(--neon-green);
+    }
+
+    .animate-in {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .keyboard-navigation *:focus {
+      outline: 2px solid var(--neon-cyan) !important;
+      outline-offset: 2px;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(var(--neon-cyan), var(--neon-purple));
+      border-radius: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(var(--neon-purple), var(--neon-pink));
+    }
+  `;
+  document.head.appendChild(style);
+});
+
+// Global utility functions
+window.PortfolioUtils = {
+  // Create glitch effect for any element
+  createGlitchEffect(element) {
+    element.style.position = 'relative';
+    element.style.overflow = 'hidden';
+
+    const glitch = document.createElement('div');
+    glitch.style.cssText = `
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+      animation: glitch-sweep 2s infinite;
+      pointer-events: none;
+    `;
+
+    element.appendChild(glitch);
+  },
+
+  // Create neon border effect
+  createNeonBorder(element, color = 'var(--neon-cyan)') {
+    element.style.border = `2px solid ${color}`;
+    element.style.boxShadow = `0 0 20px ${color}`;
+    element.style.borderRadius = '10px';
+  },
+
+  // Generate random cyber text
+  generateCyberText(length = 10) {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+  }
+};

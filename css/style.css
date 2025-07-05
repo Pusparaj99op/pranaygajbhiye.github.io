@@ -338,10 +338,10 @@ body {
   position: absolute;
   width: 8px;
   height: 8px;
-  background: radial-gradient(circle, var(--neon-cyan) 0%, transparent 70%);
   border-radius: 50%;
-  animation: quantum-flicker 3s ease-in-out infinite;
+  background: var(--neon-cyan);
   box-shadow: 0 0 20px var(--neon-cyan);
+  animation: quantumFloat 4s ease-in-out infinite;
 }
 
 .quantum-dot:nth-child(2n) {
@@ -357,15 +357,18 @@ body {
 }
 
 .hero-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  text-align: center;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-  position: relative;
-  z-index: 2;
+  gap: 2rem;
 }
 
 .hero-title {
@@ -444,37 +447,42 @@ body {
   position: relative;
   width: 100%;
   height: 400px;
+  margin: 2rem 0;
 }
 
 .floating-card {
   position: absolute;
+  backdrop-filter: blur(10px);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 15px;
   padding: 1.5rem;
-  border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  min-width: 150px;
-  animation: float 6s ease-in-out infinite;
-  transition: all 0.3s ease;
+  gap: 0.5rem;
+  min-width: 120px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
 }
 
 .floating-card:nth-child(1) {
   top: 20%;
   left: 10%;
-  animation-delay: 0s;
+  animation: float 3s ease-in-out infinite;
 }
 
 .floating-card:nth-child(2) {
-  top: 60%;
-  right: 20%;
-  animation-delay: 2s;
+  top: 50%;
+  right: 15%;
+  animation: float 4s ease-in-out infinite reverse;
 }
 
 .floating-card:nth-child(3) {
   bottom: 20%;
-  left: 50%;
-  animation-delay: 4s;
+  left: 20%;
+  animation: float 3.5s ease-in-out infinite;
 }
 
 .floating-card i {
@@ -488,16 +496,16 @@ body {
 
 /* Enhanced Visual Effects */
 .energy-orb {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, var(--neon-cyan), var(--neon-purple));
+  background: radial-gradient(circle, var(--neon-cyan) 0%, transparent 70%);
   box-shadow:
-    0 0 50px var(--neon-cyan),
-    0 0 100px var(--neon-purple),
-    inset 0 0 50px rgba(255, 255, 255, 0.1);
-  animation: energy-pulse 3s ease-in-out infinite;
+    0 0 30px var(--neon-cyan),
+    inset 0 0 30px var(--neon-cyan);
+  animation: energyPulse 2s ease-in-out infinite;
   position: relative;
+  z-index: 2;
 }
 
 .energy-orb::before {
@@ -516,6 +524,7 @@ body {
   position: relative;
   width: 300px;
   height: 300px;
+  margin: 2rem auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -527,16 +536,38 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.7;
+  z-index: 1;
+  opacity: 0.6;
 }
 
 .neural-connection {
   fill: none;
   stroke: var(--neon-cyan);
-  stroke-width: 2;
-  stroke-dasharray: 10, 5;
-  animation: neural-flow 4s linear infinite;
-  filter: drop-shadow(0 0 5px var(--neon-cyan));
+  stroke-width: 1;
+  opacity: 0.4;
+  animation: neuralPulse 3s ease-in-out infinite;
+}
+
+@keyframes energyPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes neuralPulse {
+  0%, 100% {
+    stroke-dasharray: 0, 100;
+    opacity: 0.2;
+  }
+  50% {
+    stroke-dasharray: 50, 50;
+    opacity: 0.6;
+  }
 }
 
 /* Section Styles */
@@ -1203,21 +1234,23 @@ section {
 
 /* Enhanced Hero Visual */
 .hologram-display {
-  position: absolute;
-  top: 20%;
-  right: 10%;
-  width: 200px;
-  height: 200px;
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 2rem auto;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .neural-network {
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 1;
+  opacity: 0.6;
 }
 
 /* Enhanced Mobile Menu */
@@ -1287,6 +1320,234 @@ section {
 .cursor-dot.cursor-hover {
   background: var(--neon-pink);
   box-shadow: 0 0 15px var(--neon-pink);
+}
+
+/* 3D Text Effects - Optimized for Performance */
+.text-3d {
+  text-shadow: var(--text-3d-light);
+  transform: perspective(1000px) rotateY(0deg);
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.text-3d-neon {
+  text-shadow: var(--text-3d-neon);
+  color: var(--neon-cyan);
+  animation: neonPulse 2s ease-in-out infinite alternate;
+}
+
+.text-3d-cyber {
+  text-shadow: var(--text-3d-cyber);
+  background: var(--gradient-cyber);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-3d-holographic {
+  text-shadow: var(--text-3d-holographic);
+  background: var(--gradient-holographic);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: hologramShift 3s ease-in-out infinite;
+}
+
+.text-3d:hover {
+  transform: perspective(1000px) rotateY(5deg) scale(1.02);
+  text-shadow: var(--text-3d-neon);
+}
+
+/* Interactive 3D Elements */
+.interactive-3d {
+  transform: perspective(1000px) translateZ(0);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.interactive-3d:hover {
+  transform: perspective(1000px) translateZ(20px) rotateX(5deg) rotateY(5deg);
+  box-shadow: var(--shadow-holographic);
+}
+
+/* Performance optimizations and fixes for misplaced elements */
+.hero-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  gap: 2rem;
+}
+
+.hero-visual {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.floating-elements {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  margin: 2rem 0;
+}
+
+.floating-card {
+  position: absolute;
+  backdrop-filter: blur(10px);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 15px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 120px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.floating-card:nth-child(1) {
+  top: 20%;
+  left: 10%;
+  animation: float 3s ease-in-out infinite;
+}
+
+.floating-card:nth-child(2) {
+  top: 50%;
+  right: 15%;
+  animation: float 4s ease-in-out infinite reverse;
+}
+
+.floating-card:nth-child(3) {
+  bottom: 20%;
+  left: 20%;
+  animation: float 3.5s ease-in-out infinite;
+}
+
+.hologram-display {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 2rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.energy-orb {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--neon-cyan) 0%, transparent 70%);
+  box-shadow:
+    0 0 30px var(--neon-cyan),
+    inset 0 0 30px var(--neon-cyan);
+  animation: energyPulse 2s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+}
+
+.neural-network {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.6;
+}
+
+.neural-connection {
+  fill: none;
+  stroke: var(--neon-cyan);
+  stroke-width: 1;
+  opacity: 0.4;
+  animation: neuralPulse 3s ease-in-out infinite;
+}
+
+@keyframes energyPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes neuralPulse {
+  0%, 100% {
+    stroke-dasharray: 0, 100;
+    opacity: 0.2;
+  }
+  50% {
+    stroke-dasharray: 50, 50;
+    opacity: 0.6;
+  }
+}
+
+/* Fix for quantum dots positioning */
+.quantum-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--neon-cyan);
+  box-shadow: 0 0 20px var(--neon-cyan);
+  animation: quantumFloat 4s ease-in-out infinite;
+}
+
+@keyframes quantumFloat {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-15px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  box-sizing: border-box;
+}
+
+.btn,
+.social-link,
+.nav-link {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Reduce animations on low-end devices */
+@media (max-width: 768px) or (prefers-reduced-motion: reduce) {
+  .floating-card,
+  .energy-orb,
+  .quantum-dot {
+    animation-duration: 6s;
+  }
+
+  .neural-connection {
+    animation: none;
+    opacity: 0.3;
+  }
+
+  .interactive-3d:hover {
+    transform: scale(1.02);
+  }
 }
 
 /* Responsive Design */

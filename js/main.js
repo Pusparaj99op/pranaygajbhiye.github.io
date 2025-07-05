@@ -85,11 +85,17 @@ class NavigationManager {
       this.toggleMobileMenu();
     });
 
-    // Scroll event for navbar styling and active link highlighting
+    // Throttled scroll event for better performance
+    let scrollTimer = null;
     window.addEventListener('scroll', () => {
-      this.handleScroll();
-      this.highlightActiveSection();
-    });
+      if (scrollTimer) return;
+
+      scrollTimer = setTimeout(() => {
+        this.handleScroll();
+        this.highlightActiveSection();
+        scrollTimer = null;
+      }, 16); // ~60fps
+    }, { passive: true });
   }
 
   toggleMobileMenu() {
@@ -334,87 +340,82 @@ class Utils {
 // Performance Monitor
 class PerformanceMonitor {
   constructor() {
+    this.frameCount = 0;
+    this.lastTime = performance.now();
+    this.fps = 60;
+    this.avgFps = 60;
+    this.samples = [];
+    this.maxSamples = 30;
+    this.isLowPerformance = false;
     this.init();
   }
 
   init() {
-    // Preload critical resources
-    this.preloadImages();
-
-    // Optimize scroll performance
-    this.optimizeScroll();
-
-    // Monitor performance
-    this.monitorPerformance();
+    this.monitor();
   }
 
-  preloadImages() {
-    const imageUrls = [
-      // Add any critical images that need preloading
-    ];
+  monitor() {
+    const currentTime = performance.now();
+    const delta = currentTime - this.lastTime;
 
-    imageUrls.forEach(url => {
-      const img = new Image();
-      img.src = url;
-    });
-  }
+    if (delta > 0) {
+      this.fps = 1000 / delta;
+      this.samples.push(this.fps);
 
-  optimizeScroll() {
-    // Use passive listeners for better scroll performance
-    window.addEventListener('scroll',
-      Utils.throttle(() => {
-        // Scroll-based animations and effects
-        this.handleScrollEffects();
-      }, 16),
-      { passive: true }
-    );
-  }
-
-  handleScrollEffects() {
-    const scrolled = window.pageYOffset;
-    const rate = scrolled * -0.5;
-
-    // Parallax effect for hero background
-    const heroBackground = document.querySelector('.hero-bg');
-    if (heroBackground) {
-      heroBackground.style.transform = `translateY(${rate}px)`;
-    }
-
-    // Update floating elements position
-    const floatingElements = document.querySelectorAll('.floating-card');
-    floatingElements.forEach((element, index) => {
-      const speed = 0.1 + (index * 0.05);
-      const yPos = scrolled * speed;
-      element.style.transform = `translateY(${yPos}px)`;
-    });
-  }
-
-  monitorPerformance() {
-    // Monitor frame rate
-    let lastTime = performance.now();
-    let frameCount = 0;
-
-    const checkPerformance = (currentTime) => {
-      frameCount++;
-
-      if (currentTime - lastTime >= 1000) {
-        const fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
-
-        // Reduce animations if performance is poor
-        if (fps < 30) {
-          document.body.classList.add('reduce-animations');
-        } else {
-          document.body.classList.remove('reduce-animations');
-        }
-
-        frameCount = 0;
-        lastTime = currentTime;
+      if (this.samples.length > this.maxSamples) {
+        this.samples.shift();
       }
 
-      requestAnimationFrame(checkPerformance);
-    };
+      this.avgFps = this.samples.reduce((a, b) => a + b, 0) / this.samples.length;
 
-    requestAnimationFrame(checkPerformance);
+      // Adjust quality if performance is poor
+      if (this.avgFps < 30 && !this.isLowPerformance) {
+        this.enableLowPerformanceMode();
+      } else if (this.avgFps > 45 && this.isLowPerformance) {
+        this.disableLowPerformanceMode();
+      }
+    }
+
+    this.lastTime = currentTime;
+    this.frameCount++;
+
+    requestAnimationFrame(() => this.monitor());
+  }
+
+  enableLowPerformanceMode() {
+    this.isLowPerformance = true;
+    document.body.classList.add('low-performance');
+
+    // Reduce particle system quality
+    const particleContainer = document.getElementById('particles-container');
+    if (particleContainer) {
+      particleContainer.style.display = 'none';
+    }
+
+    // Disable complex animations
+    const animatedElements = document.querySelectorAll('.floating-card, .energy-orb');
+    animatedElements.forEach(el => {
+      el.style.animation = 'none';
+    });
+
+    console.log('Low performance mode enabled');
+  }
+
+  disableLowPerformanceMode() {
+    this.isLowPerformance = false;
+    document.body.classList.remove('low-performance');
+
+    // Re-enable particle system
+    const particleContainer = document.getElementById('particles-container');
+    if (particleContainer) {
+      particleContainer.style.display = 'block';
+    }
+
+    console.log('Low performance mode disabled');
+  }
+
+  getCurrentFPS() {
+    return Math.round(this.avgFps);
   }
 }
 
@@ -1147,7 +1148,15 @@ class PortfolioApp {
 
 // Initialize application when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize performance monitor first
+  const performanceMonitor = new PerformanceMonitor();
+
   const app = new PortfolioApp();
+
+  // Add performance info to console for debugging
+  setTimeout(() => {
+    console.log(`Current FPS: ${performanceMonitor.getCurrentFPS()}`);
+  }, 5000);
 
   // Add some CSS animations dynamically
   const style = document.createElement('style');

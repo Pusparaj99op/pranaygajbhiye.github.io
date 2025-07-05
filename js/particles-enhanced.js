@@ -1,11 +1,11 @@
 /*
-  Advanced Particle System for Pranay Gajbhiye Portfolio
-  Purpose: 3D particle effects, neural networks, quantum fields
-  Features: WebGL rendering, interactive particles, theme-aware effects
-  Version: 2.0
+  Optimized Particle System for Pranay Gajbhiye Portfolio
+  Purpose: Performance-optimized 3D particle effects with device detection
+  Features: Adaptive quality, throttled animations, WebGL fallbacks
+  Version: 3.0
   Project: Personal Portfolio
   Last Modified: July 5, 2025
-  Usage: Integrated with main.js, creates immersive background effects
+  Usage: Auto-adjusts quality based on device performance
 */
 
 class AdvancedParticleSystem {
@@ -19,14 +19,32 @@ class AdvancedParticleSystem {
     this.mouseX = 0;
     this.mouseY = 0;
     this.theme = 'dark';
+    this.performance = this.detectPerformance();
+    this.frameCount = 0;
+    this.lastTime = 0;
     this.init();
+  }
+
+  detectPerformance() {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isLowEnd = navigator.hardwareConcurrency <= 4;
+    const hasWebGL = !!window.WebGLRenderingContext;
+
+    if (isMobile || isLowEnd || !hasWebGL) {
+      return 'low';
+    } else if (navigator.hardwareConcurrency >= 8) {
+      return 'high';
+    }
+    return 'medium';
   }
 
   init() {
     this.setupThreeJS();
     this.createParticles();
-    this.createNeuralNetwork();
-    this.createQuantumField();
+    if (this.performance !== 'low') {
+      this.createNeuralNetwork();
+      this.createQuantumField();
+    }
     this.bindEvents();
     this.animate();
   }
@@ -34,7 +52,9 @@ class AdvancedParticleSystem {
   setupThreeJS() {
     // Scene setup
     this.scene = new THREE.Scene();
-    this.scene.fog = new THREE.Fog(0x000000, 1, 1000);
+    if (this.performance === 'high') {
+      this.scene.fog = new THREE.Fog(0x000000, 1, 1000);
+    }
 
     // Camera setup
     this.camera = new THREE.PerspectiveCamera(
@@ -45,13 +65,16 @@ class AdvancedParticleSystem {
     );
     this.camera.position.z = 500;
 
-    // Renderer setup
-    this.renderer = new THREE.WebGLRenderer({
+    // Renderer setup with performance optimization
+    const rendererOptions = {
       alpha: true,
-      antialias: true
-    });
+      antialias: this.performance === 'high',
+      powerPreference: this.performance === 'low' ? 'low-power' : 'high-performance'
+    };
+
+    this.renderer = new THREE.WebGLRenderer(rendererOptions);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setPixelRatio(this.performance === 'low' ? 1 : Math.min(window.devicePixelRatio, 2));
 
     const container = document.getElementById('particles-container');
     if (container) {
@@ -60,7 +83,14 @@ class AdvancedParticleSystem {
   }
 
   createParticles() {
-    const particleCount = 1000;
+    // Adaptive particle count based on performance
+    const particleCounts = {
+      low: 200,
+      medium: 500,
+      high: 800
+    };
+    const particleCount = particleCounts[this.performance];
+
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
     const sizes = new Float32Array(particleCount);
@@ -76,10 +106,10 @@ class AdvancedParticleSystem {
     ];
 
     for (let i = 0; i < particleCount; i++) {
-      // Position
-      positions[i * 3] = (Math.random() - 0.5) * 2000;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 2000;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 2000;
+      // Position - reduced range for better performance
+      positions[i * 3] = (Math.random() - 0.5) * 1500;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 1500;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 1500;
 
       // Color
       const color = neonColors[Math.floor(Math.random() * neonColors.length)];
@@ -87,8 +117,8 @@ class AdvancedParticleSystem {
       colors[i * 3 + 1] = color.g;
       colors[i * 3 + 2] = color.b;
 
-      // Size
-      sizes[i] = Math.random() * 3 + 1;
+      // Size - reduced for better performance
+      sizes[i] = Math.random() * 2 + 0.5;
     }
 
     const geometry = new THREE.BufferGeometry();
@@ -140,18 +170,28 @@ class AdvancedParticleSystem {
   }
 
   createNeuralNetwork() {
-    const nodeCount = 50;
+    // Adaptive node count based on performance
+    const nodeCounts = {
+      low: 15,
+      medium: 30,
+      high: 50
+    };
+    const nodeCount = nodeCounts[this.performance];
     const nodes = [];
     const connections = [];
 
-    // Create nodes
+    // Create nodes with performance-based geometry
+    const nodeGeometry = this.performance === 'low'
+      ? new THREE.SphereGeometry(2, 6, 6)
+      : new THREE.SphereGeometry(2, 8, 8);
+
     for (let i = 0; i < nodeCount; i++) {
       const node = new THREE.Mesh(
-        new THREE.SphereGeometry(2, 8, 8),
+        nodeGeometry,
         new THREE.MeshBasicMaterial({
           color: new THREE.Color().setHSL(Math.random(), 1, 0.5),
           transparent: true,
-          opacity: 0.8
+          opacity: 0.7
         })
       );
 
@@ -165,10 +205,11 @@ class AdvancedParticleSystem {
       this.scene.add(node);
     }
 
-    // Create connections
+    // Create connections with reduced complexity
+    const connectionProbability = this.performance === 'low' ? 0.05 : 0.1;
     for (let i = 0; i < nodeCount; i++) {
       for (let j = i + 1; j < nodeCount; j++) {
-        if (Math.random() < 0.1) { // 10% connection probability
+        if (Math.random() < connectionProbability) {
           const geometry = new THREE.BufferGeometry();
           const positions = new Float32Array(6);
 
@@ -184,7 +225,7 @@ class AdvancedParticleSystem {
           const material = new THREE.LineBasicMaterial({
             color: 0x00ffff,
             transparent: true,
-            opacity: 0.3
+            opacity: 0.2
           });
 
           const line = new THREE.Line(geometry, material);
@@ -198,74 +239,117 @@ class AdvancedParticleSystem {
   }
 
   createQuantumField() {
-    const fieldGeometry = new THREE.PlaneGeometry(2000, 2000, 100, 100);
-    const fieldMaterial = new THREE.ShaderMaterial({
-      uniforms: {
-        time: { value: 0 },
-        resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
-      },
-      vertexShader: `
-        uniform float time;
-        varying vec2 vUv;
-        varying float vElevation;
+    // Simplified quantum field based on performance
+    const fieldSizes = {
+      low: { width: 1000, height: 1000, segments: 20 },
+      medium: { width: 1500, height: 1500, segments: 50 },
+      high: { width: 2000, height: 2000, segments: 100 }
+    };
 
-        void main() {
-          vUv = uv;
+    const fieldSize = fieldSizes[this.performance];
+    const fieldGeometry = new THREE.PlaneGeometry(
+      fieldSize.width,
+      fieldSize.height,
+      fieldSize.segments,
+      fieldSize.segments
+    );
 
-          vec3 pos = position;
-          float elevation = sin(pos.x * 0.01 + time * 0.001) *
-                           cos(pos.y * 0.01 + time * 0.001) * 20.0;
-          pos.z += elevation;
-          vElevation = elevation;
+    if (this.performance === 'low') {
+      // Simple material for low-end devices
+      const fieldMaterial = new THREE.MeshBasicMaterial({
+        color: 0x00ffff,
+        transparent: true,
+        opacity: 0.05,
+        wireframe: true
+      });
 
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-        }
-      `,
-      fragmentShader: `
-        uniform float time;
-        varying vec2 vUv;
-        varying float vElevation;
+      this.quantumField = new THREE.Mesh(fieldGeometry, fieldMaterial);
+    } else {
+      // Shader material for medium/high performance
+      const fieldMaterial = new THREE.ShaderMaterial({
+        uniforms: {
+          time: { value: 0 },
+          resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
+        },
+        vertexShader: `
+          uniform float time;
+          varying vec2 vUv;
+          varying float vElevation;
 
-        void main() {
-          float strength = vElevation * 0.1;
-          vec3 color = mix(
-            vec3(0.0, 1.0, 1.0),
-            vec3(1.0, 0.0, 0.5),
-            strength
-          );
+          void main() {
+            vUv = uv;
 
-          gl_FragColor = vec4(color, 0.1);
-        }
-      `,
-      transparent: true,
-      wireframe: true
-    });
+            vec3 pos = position;
+            float elevation = sin(pos.x * 0.01 + time * 0.001) *
+                             cos(pos.y * 0.01 + time * 0.001) * 15.0;
+            pos.z += elevation;
+            vElevation = elevation;
 
-    this.quantumField = new THREE.Mesh(fieldGeometry, fieldMaterial);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform float time;
+          varying vec2 vUv;
+          varying float vElevation;
+
+          void main() {
+            float strength = vElevation * 0.08;
+            vec3 color = mix(
+              vec3(0.0, 1.0, 1.0),
+              vec3(1.0, 0.0, 0.5),
+              strength
+            );
+
+            gl_FragColor = vec4(color, 0.08);
+          }
+        `,
+        transparent: true,
+        wireframe: true
+      });
+
+      this.quantumField = new THREE.Mesh(fieldGeometry, fieldMaterial);
+    }
+
     this.quantumField.rotation.x = -Math.PI / 2;
     this.quantumField.position.y = -200;
     this.scene.add(this.quantumField);
   }
 
   bindEvents() {
+    // Throttled mouse movement for better performance
+    let mouseThrottleTimer = null;
     window.addEventListener('mousemove', (event) => {
-      this.mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-      this.mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+      if (mouseThrottleTimer) return;
+
+      mouseThrottleTimer = setTimeout(() => {
+        this.mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+        this.mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        mouseThrottleTimer = null;
+      }, this.performance === 'low' ? 50 : 16); // Throttle based on performance
     });
 
+    // Debounced resize handler
+    let resizeTimer = null;
     window.addEventListener('resize', () => {
-      this.camera.aspect = window.innerWidth / window.innerHeight;
-      this.camera.updateProjectionMatrix();
-      this.renderer.setSize(window.innerWidth, window.innerHeight);
+      if (resizeTimer) clearTimeout(resizeTimer);
+
+      resizeTimer = setTimeout(() => {
+        this.camera.aspect = window.innerWidth / window.innerHeight;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+      }, 100);
     });
 
-    // Mouse interaction with particles
-    window.addEventListener('click', (event) => {
-      this.createExplosion(
-        (event.clientX / window.innerWidth) * 2 - 1,
-        -(event.clientY / window.innerHeight) * 2 + 1
-      );
-    });
+    // Mouse interaction with particles (only for medium/high performance)
+    if (this.performance !== 'low') {
+      window.addEventListener('click', (event) => {
+        this.createExplosion(
+          (event.clientX / window.innerWidth) * 2 - 1,
+          -(event.clientY / window.innerHeight) * 2 + 1
+        );
+      });
+    }
   }
 
   createExplosion(x, y) {
@@ -325,40 +409,58 @@ class AdvancedParticleSystem {
   animate() {
     requestAnimationFrame(() => this.animate());
 
-    const time = Date.now();
+    // Frame skipping for low-end devices
+    this.frameCount++;
+    const currentTime = performance.now();
+
+    if (this.performance === 'low' && this.frameCount % 2 !== 0) {
+      return; // Skip every other frame for low-end devices
+    }
+
+    // Throttle expensive operations
+    const shouldUpdateComplex = this.frameCount % 3 === 0;
+    const time = currentTime * 0.001; // Use performance.now for better precision
 
     // Update particle system
-    if (this.particles.material.uniforms) {
+    if (this.particles && this.particles.material.uniforms) {
       this.particles.material.uniforms.time.value = time;
     }
 
-    // Update quantum field
-    if (this.quantumField.material.uniforms) {
+    // Update quantum field (only for medium/high performance)
+    if (this.quantumField && this.quantumField.material.uniforms && this.performance !== 'low') {
       this.quantumField.material.uniforms.time.value = time;
     }
 
-    // Rotate particles based on mouse
-    this.particles.rotation.x += (this.mouseY * 0.01 - this.particles.rotation.x) * 0.05;
-    this.particles.rotation.y += (this.mouseX * 0.01 - this.particles.rotation.y) * 0.05;
+    // Smooth particle rotation with reduced intensity
+    if (this.particles) {
+      const rotationSpeed = this.performance === 'low' ? 0.02 : 0.05;
+      this.particles.rotation.x += (this.mouseY * 0.005 - this.particles.rotation.x) * rotationSpeed;
+      this.particles.rotation.y += (this.mouseX * 0.005 - this.particles.rotation.y) * rotationSpeed;
+    }
 
-    // Animate neural network
-    if (this.neuralNetwork) {
+    // Animate neural network (throttled for performance)
+    if (this.neuralNetwork && shouldUpdateComplex && this.performance !== 'low') {
       this.neuralNetwork.nodes.forEach((node, index) => {
-        node.position.y += Math.sin(time * 0.001 + index) * 0.5;
-        node.material.color.setHSL((time * 0.0001 + index * 0.1) % 1, 1, 0.5);
+        node.position.y += Math.sin(time + index) * 0.3;
+        if (this.performance === 'high') {
+          node.material.color.setHSL((time * 0.1 + index * 0.1) % 1, 1, 0.5);
+        }
       });
 
       this.neuralNetwork.connections.forEach((connection, index) => {
-        connection.material.opacity = 0.1 + Math.sin(time * 0.002 + index) * 0.2;
+        connection.material.opacity = 0.1 + Math.sin(time * 2 + index) * 0.15;
       });
     }
 
-    // Camera movement
-    this.camera.position.x += (this.mouseX * 50 - this.camera.position.x) * 0.05;
-    this.camera.position.y += (-this.mouseY * 50 - this.camera.position.y) * 0.05;
+    // Smooth camera movement with performance-based intensity
+    const cameraSpeed = this.performance === 'low' ? 0.02 : 0.05;
+    const cameraRange = this.performance === 'low' ? 25 : 50;
+    this.camera.position.x += (this.mouseX * cameraRange - this.camera.position.x) * cameraSpeed;
+    this.camera.position.y += (-this.mouseY * cameraRange - this.camera.position.y) * cameraSpeed;
     this.camera.lookAt(this.scene.position);
 
     this.renderer.render(this.scene, this.camera);
+    this.lastTime = currentTime;
   }
 
   destroy() {

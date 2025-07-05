@@ -1,0 +1,357 @@
+/*
+  Theme Management for Pranay Gajbhiye Portfolio
+  Purpose: Light/Dark theme variables and transitions
+  Features: Smooth theme switching, custom properties for both themes
+  Version: 1.0
+  Project: Personal Portfolio
+  Last Modified: July 5, 2025
+  Usage: Handles theme toggle functionality and color schemes
+*/
+
+/* Theme Transition */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease,
+              border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Dark Theme (Default) */
+.dark-theme {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #1a1a2e;
+  --bg-tertiary: #16213e;
+  --text-primary: #ffffff;
+  --text-secondary: #b8c5d1;
+  --text-muted: #8892b0;
+  --accent-primary: #64ffda;
+  --accent-secondary: #7c3aed;
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
+  --shadow-glow: 0 0 20px rgba(100, 255, 218, 0.3);
+  --nav-bg: rgba(10, 10, 15, 0.9);
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --input-bg: rgba(255, 255, 255, 0.05);
+  --scrollbar-bg: #1a1a2e;
+  --scrollbar-thumb: #64ffda;
+}
+
+/* Light Theme */
+.light-theme {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #e2e8f0;
+  --text-primary: #1a202c;
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
+  --accent-primary: #6366f1;
+  --accent-secondary: #8b5cf6;
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --gradient-secondary: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+  --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  --gradient-hero: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #f59e0b 100%);
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+  --nav-bg: rgba(255, 255, 255, 0.9);
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --input-bg: rgba(255, 255, 255, 0.8);
+  --scrollbar-bg: #f8fafc;
+  --scrollbar-thumb: #6366f1;
+}
+
+/* Theme-specific adjustments */
+.dark-theme .shape-fill {
+  fill: var(--bg-secondary);
+}
+
+.light-theme .shape-fill {
+  fill: var(--bg-secondary);
+}
+
+/* Wave animation colors for themes */
+.dark-theme .wave-animation path:nth-child(1) {
+  fill: rgba(26, 26, 46, 0.3);
+}
+
+.dark-theme .wave-animation path:nth-child(2) {
+  fill: rgba(26, 26, 46, 0.6);
+}
+
+.dark-theme .wave-animation path:nth-child(3) {
+  fill: var(--bg-secondary);
+}
+
+.light-theme .wave-animation path:nth-child(1) {
+  fill: rgba(248, 250, 252, 0.3);
+}
+
+.light-theme .wave-animation path:nth-child(2) {
+  fill: rgba(248, 250, 252, 0.6);
+}
+
+.light-theme .wave-animation path:nth-child(3) {
+  fill: var(--bg-secondary);
+}
+
+/* Custom scrollbar for themes */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+
+/* Selection colors for themes */
+::selection {
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+}
+
+::-moz-selection {
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+}
+
+/* Theme toggle button specific styles */
+.theme-toggle {
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.theme-toggle i {
+  transition: all 0.3s ease;
+}
+
+.dark-theme .theme-toggle i:before {
+  content: "\f186"; /* sun icon */
+}
+
+.light-theme .theme-toggle i:before {
+  content: "\f186"; /* moon icon */
+}
+
+/* Theme-specific input styling */
+.dark-theme input,
+.dark-theme textarea {
+  background: var(--input-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+}
+
+.light-theme input,
+.light-theme textarea {
+  background: var(--input-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+}
+
+/* Theme-specific placeholder styling */
+.dark-theme input::placeholder,
+.dark-theme textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.light-theme input::placeholder,
+.light-theme textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+/* Theme-specific button hover effects */
+.dark-theme .btn:hover {
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.light-theme .btn:hover {
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+/* Theme-specific glass effect variations */
+.dark-theme .glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.light-theme .glass-effect {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Theme-specific navigation styles */
+.dark-theme .navbar {
+  background: rgba(10, 10, 15, 0.9);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.light-theme .navbar {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Theme-specific project card hover effects */
+.dark-theme .project-card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+              0 0 20px rgba(100, 255, 218, 0.2);
+}
+
+.light-theme .project-card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15),
+              0 0 20px rgba(99, 102, 241, 0.2);
+}
+
+/* Theme-specific skill bar colors */
+.dark-theme .skill-progress {
+  background: var(--gradient-primary);
+  box-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+}
+
+.light-theme .skill-progress {
+  background: var(--gradient-primary);
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+}
+
+/* Theme-specific social link hover effects */
+.dark-theme .social-link:hover {
+  color: var(--accent-primary);
+  box-shadow: 0 0 15px rgba(100, 255, 218, 0.4);
+  transform: translateY(-3px) scale(1.1);
+}
+
+.light-theme .social-link:hover {
+  color: var(--accent-primary);
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+  transform: translateY(-3px) scale(1.1);
+}
+
+/* Theme-specific footer styling */
+.dark-theme .footer {
+  background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.light-theme .footer {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Theme transition for complex elements */
+.hero,
+.about,
+.skills,
+.projects,
+.contact {
+  transition: background-color 0.5s ease;
+}
+
+/* Theme-specific gradient text adjustments */
+.dark-theme .gradient-text {
+  background: linear-gradient(135deg, #64ffda 0%, #7c3aed 50%, #f093fb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.light-theme .gradient-text {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Theme-specific animation adjustments */
+.dark-theme .orbit-item {
+  box-shadow: 0 0 20px rgba(100, 255, 218, 0.2);
+}
+
+.light-theme .orbit-item {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+}
+
+/* Theme-specific particles */
+.dark-theme #particles-container {
+  opacity: 0.6;
+  filter: hue-rotate(0deg);
+}
+
+.light-theme #particles-container {
+  opacity: 0.3;
+  filter: hue-rotate(180deg);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .dark-theme {
+    --text-primary: #ffffff;
+    --text-secondary: #ffffff;
+    --bg-primary: #000000;
+    --bg-secondary: #111111;
+    --accent-primary: #00ff00;
+  }
+
+  .light-theme {
+    --text-primary: #000000;
+    --text-secondary: #000000;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f0f0f0;
+    --accent-primary: #0000ff;
+  }
+}
+
+/* Reduced transparency for accessibility */
+@media (prefers-reduced-transparency: reduce) {
+  .glass-effect {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .dark-theme .glass-effect {
+    background: var(--bg-secondary);
+  }
+
+  .light-theme .glass-effect {
+    background: var(--bg-secondary);
+  }
+}
+
+/* Theme-specific mobile adjustments */
+@media (max-width: 768px) {
+  .dark-theme .navbar {
+    background: rgba(10, 10, 15, 0.95);
+  }
+
+  .light-theme .navbar {
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  .glass-effect {
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+  }
+}
